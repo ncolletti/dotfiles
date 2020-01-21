@@ -34,11 +34,14 @@ Plug 'preservim/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " Plug 'sheerun/vim-polyglot'
-Plug 'preservim/nerdcommenter'
+" Plug 'preservim/nerdcommenter'
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 "Plug 'styled-components/vim-styled-components', {'branch': 'main'}
 Plug 'ryanoasis/vim-devicons'
 " Plug 'dense-analysis/ale'
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
 
 " Iniitalize plugin system
 call plug#end()
@@ -134,6 +137,7 @@ set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
 
+
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
@@ -141,13 +145,6 @@ inoremap <silent><expr> <TAB>
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" Use tab for snipper trigger completion.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -167,10 +164,14 @@ let g:coc_global_extensions = [
       \ 'coc-tslint',
       \ 'coc-tslint-plugin',
       \ 'coc-css',
-      \ 'coc-pairs'
+      \ 'coc-vetur',
+      \ 'coc-pairs',
       \]
 " need ot install coc-pairs, coc-tsserver, coc-prettier
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " coc.nvim config end
+
+" use <c-space>for trigger completion
+inoremap <silent><expr> <c-space> coc#refresh()
